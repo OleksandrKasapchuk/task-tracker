@@ -1,11 +1,12 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from .forms import *
 
 
 class Index(TemplateView):
-	pass
+	template_name = 'task_tracker/index.html'
 
 
 class TaskListView(ListView):
@@ -20,8 +21,8 @@ class TaskDetailView(DetailView):
 	template_name = "task_tracker/task_details.html"
 
 
-# class TaskCreateView(CreateView):
-# 	model = Task
-# 	template_name = "task_tracker/task_form.html"
-# 	form_class = TaskCreateForm
-# 	success_url = reverse("task_tracker:tasks")
+class TaskCreateView(CreateView):
+	model = Task
+	template_name = "task_tracker/task_form.html"
+	form_class = TaskCreateForm
+	success_url = reverse_lazy("task_tracker:task-list")

@@ -2,5 +2,7 @@
 
 
 {% block main %}
-
+<a href="{% url 'login' %}">login</a>
+<a href="{% url 'logout' %}">Log out</a>
+<a href="{% url 'user-info' user.id %}">profile</a>
 {% endblock %}
