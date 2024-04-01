@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+
+{% block main %}
+
+<ul>
+	<li> Name: {{ task.name }} </li>
+	<li> Creator: {{ task.creator }} </li>
+	<li> Description: {{ task.description }} </li>
+	<li> End date: {{ task.end_date }} </li>
+</ul>
+
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+
+{% block main %}
+{% for task in tasks %}
+	<a href="{% url 'task_tracker:task-details' task.pk %}">{{ task.name }}</a>
+	{{ task.creator }}
+{% endfor %}
+{% endblock %}
