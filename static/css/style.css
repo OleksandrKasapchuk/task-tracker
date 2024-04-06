@@ -1,14 +1,80 @@
-body {
-	background-image: url(../images/fon.png);
-	background-size: 100vw 100vh;
-    background-repeat: no-repeat;
-    width: 100%;
-    font-family: "Averia Serif Libre";
+* {
+	margin: 0;
+	padding: 0;
 }
 
-h1 {
-	
-	font-size: 72px;
+a {
+	text-decoration: none;
+	color: #FFF; 
+}
+
+a:visited {
+	color: #FFF;
+}
+
+body { 
+	background-image: url(../images/fon.png); 
+	background-size: 100% 100vh; 
+	background-repeat: no-repeat; 
+	font-family: "Averia Serif Libre"; 
+	color: #FFF; 
+	text-shadow: 0px 11px 4.8px rgba(0, 0, 0, 0.25); 
+	font-style: normal;
+	line-height: normal; 
+	}
+
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center
+}
+
+h1 { 
+	-webkit-text-stroke-width: 2px; 
+	-webkit-text-stroke-color: #000; 
+	font-size: 200px; 
+	text-align: center; 
+	}
+
+.sign_btn {
+	padding: 15px;
+	background-color: rgba(0, 0, 0, 0.1);
+	border-radius: 20px;
+	font-size: 25px;
+	margin: 15px;
+}
+
+header {
+	display: flex;
+	width: 100%;
+	flex-direction: row;
+	justify-content: flex-end;
+	height: 80px;
+	align-items: center;
+}
+
+.description {
 	text-align: center;
-	color: white;
+	font-size: 25px;
+	font-family: Averia Serif Libre;
+	font-weight: 700;
+	word-wrap: break-word
+}
+
+footer {
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	margin-top: 30px;
+}
+
+.goto_board {
+	padding: 50px;
+	border-radius: 20px;
+	font-size: 64px;
+	display: flex;
+	padding: 15px;
+	background-color: rgba(116,139,180,0.6);
+	border-radius: 20px;
+	margin: 15px;
 }
