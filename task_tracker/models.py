@@ -1,6 +1,11 @@
 from django.db import models
 from auth_system.models import CustomUser
 
+
+# class Dashboard(models.Model):
+# 	name = models.CharField(max_length=100)
+
+
 class Task(models.Model):
 
 	STATUS_CHOICES = [
