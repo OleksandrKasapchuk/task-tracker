@@ -1,0 +1,14 @@
+body {
+	background-image: url(../images/fon.png);
+	background-size: 100vw 100vh;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-family: "Averia Serif Libre";
+}
+
+h1 {
+	
+	font-size: 72px;
+	text-align: center;
+	color: white;
+}
