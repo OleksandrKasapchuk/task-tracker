@@ -3,7 +3,8 @@
 
 {% block content %}
 {% for task in tasks %}
-	<a href="{% url 'task_tracker:task-details' task.pk %}">{{ task.name }}</a>
-	{{ task.creator }}
+	<a href="{% url 'task-tracker:task-details' task.pk %}">{{ task.name }}</a><br>
+	{{ task.creator }}<br>
 {% endfor %}
+<a href="{% url 'task-tracker:task-create' %}">Add task</a>
 {% endblock %}

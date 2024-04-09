@@ -8,6 +8,8 @@
 	<li> Creator: {{ task.creator }} </li>
 	<li> Description: {{ task.description }} </li>
 	<li> End date: {{ task.end_date }} </li>
+	<a href="{% url 'task-tracker:task-update' task.pk %}">Edit</a>
+	<a href="{% url 'task-tracker:task-delete' task.pk %}">Delete</a>
 </ul>
 
 {% endblock %}
