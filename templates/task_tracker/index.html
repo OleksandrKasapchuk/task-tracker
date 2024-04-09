@@ -1,6 +1,28 @@
 {% extends "base.html" %}
 
 
-{% block main %}
-<h1>Tasker</h1>
+{% block content %}
+{% if not request.user.is_authenticated %}
+<header>
+    <a class="sign_btn" href="{% url 'login' %}">Sign in</a>
+    <a class="sign_btn" href="{% url 'register' %}">Sign up</a>
+</header>
+{% endif %}
+
+<main>
+    <h1>Tasker</h1>
+    <p class="description">Tasker is a user-friendly platform designed to help you<br/>
+        prioritize your tasks effectively. With Tasker, you can<br/>
+        organize, schedule, and track your tasks effortlessly,<br/>
+        ensuring that you stay focused  on what matters most. <br/>
+        <br/>Say goodbye to productivity and hello to procrastination with Tasker!
+    </p>
+    <a class="goto_board">Go to dashboards</a>
+</main>
+<footer>
+    <p>
+        Made by<br><a href="https://t.me/omuskat">@omuskat</a> / <a href="https://t.me/Sashapre228">@Sashapre228</a>
+    </p>
+</footer>
+    
 {% endblock %}
