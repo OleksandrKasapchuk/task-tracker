@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<ul>
+	{% for dashboard in dashboards %}
+		<li> {{dashboard}} </li>
+	{% endfor %}
+</ul>
+{% endblock %}

@@ -7,12 +7,18 @@ from .forms import *
 
 
 class Index(TemplateView):
-	template_name = 'task_tracker/index.html'
+	template_name = "task_tracker/index.html"
+
+
+class DashboardListView(ListView):
+	model = Dashboard
+	context_object_name = "dashboards"
+	template_name = "task_tracker/dashboards.html"
 
 
 class TaskListView(ListView):
 	model = Task
-	context_object_name = 'tasks'
+	context_object_name = "tasks"
 	template_name = "task_tracker/tasks.html"
 
 
