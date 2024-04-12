@@ -4,7 +4,7 @@
 {% block content %}
 <ul>
 	{% for dashboard in dashboards %}
-		<li> {{dashboard}} </li>
+		<li> <a href="{% url 'task-tracker:task-list' dashboard.pk %}">{{dashboard}}</a> </li>
 	{% endfor %}
 </ul>
 {% endblock %}
