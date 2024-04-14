@@ -8,28 +8,27 @@ from .models import CustomUser
 
 def register_user(request):
     if request.user.is_authenticated:
-        return redirect("task_tracker:index")
+        return redirect("task-tracker:index")
     else:
         if request.method == 'POST':
-            username = request.POST.get("username")
+            username = request.POST.get('username')
             name = request.POST.get('first_name')
             surname = request.POST.get('last_name')
             email = request.POST.get('email')
-            phone_number = request.POST.get('tel')
             password = request.POST.get('password')
             
-            new_user = CustomUser.objects.create_user(username=username, first_name=name, last_name=surname, email=email, phone_number=phone_number,password=password)
+            new_user = CustomUser.objects.create_user(username=username, first_name=name, last_name=surname, email=email ,password=password)
             new_user.save()
             user = authenticate(username=username, first_name=name, last_name=surname, email=email, password=password)
             login(request, user)
 
-            return redirect("task_tracker:index")
+            return redirect("task-tracker:index")
         else:
             return render(request, "auth_system/register.html")
 
 def login_user(request):
     if request.user.is_authenticated:
-        return redirect("task_tracker:index")
+        return redirect("task-tracker:index")
     else:
         if request.method == "POST":
             username = request.POST.get("username")
@@ -40,7 +39,7 @@ def login_user(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, ("You have been succesfully logged in"))
-                return redirect("task_tracker:index")
+                return redirect("task-tracker:index")
             else:
                 messages.error(request, ("There was an error logging in, try again!"))
                 return redirect("login")
@@ -52,7 +51,7 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     messages.success(request, ("You were logged out"))
-    return redirect("task_tracker:index")
+    return redirect("task-tracker:index")
 
 def user_info(request, pk):
     if request.user.id == pk:
