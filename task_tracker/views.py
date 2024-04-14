@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from .models import *
-from django.views.generic import ListView, DetailView, CreateView, TemplateView, UpdateView, DeleteView
+from django.views.generic import View, ListView, DetailView, CreateView, TemplateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import *
 from .mixins import *
+
 
 
 class Index(TemplateView):
@@ -37,13 +38,7 @@ class TaskDetailView(DetailView):
 		context = super().get_context_data(**kwargs)
 		context['dashboard_pk'] = self.kwargs['dashboard_pk']
 		return context
-# def task_list(request, dashboard_pk):
-# 	context = {"tasks": Task.objects.filter(dashboard=dashboard_pk), "dashboard_pk":dashboard_pk}
-# 	return render (
-# 		request,
-# 		"task_tracker/tasks.html",
-# 		context
-# 	)
+
 
 
 
@@ -51,12 +46,13 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 	model = Task
 	template_name = "task_tracker/task_form.html"
 	form_class = TaskCreateForm
-	success_url = reverse_lazy("task-tracker:task-list")
 
 	def form_valid(self, form):
 		form.instance.creator = self.request.user
-		
+		form.instance.dashboard = Dashboard.objects.get(id=self.kwargs['dashboard_pk'])
 		return super().form_valid(form)
+	def get_success_url(self) -> str:
+		return reverse_lazy("task-tracker:task-list",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk']})
 
 
 class TaskUpdateView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
@@ -64,10 +60,12 @@ class TaskUpdateView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
 	template_name = "task_tracker/task_form.html"
 	context_object_name = "task"
 	form_class = TaskCreateForm
-	success_url = reverse_lazy("task-tracker:task-list")
+	def get_success_url(self) -> str:
+		return reverse_lazy("task-tracker:task-list",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk']})
 
 
 class TaskDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
 	model = Task
 	template_name = "task_tracker/task_form.html"
-	success_url = reverse_lazy("task-tracker:task-list")
+	def get_success_url(self) -> str:
+		return reverse_lazy("task-tracker:task-list",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk']})

@@ -2,9 +2,19 @@
 
 
 {% block content %}
-{% for task in tasks %}
-	<a href="{% url 'task-tracker:task-details' dashboard_pk task.pk %}">{{ task.name }}</a><br>
-	{{ task.creator }}<br>
-{% endfor %}
 
+<header class="header_boards">
+	<a class="back_txt" href="{% url 'task-tracker:index' %}">Back to main page</a>
+	<a class="profile_txt" href="">Profile</a>
+</header>
+{% for task in tasks %}
+	<div class="card mb-3" style="width: 18rem;">
+		<div class="card-body">
+			<h5 class="card-title"><a href="{% url 'task-tracker:task-details' dashboard_pk task.pk %}" class="tasks">{{ task.name }}</a></h5>
+			<p class="card-text"> {{task.description}} </p>
+			<a href="#" class="btn btn-primary">Go somewhere</a>
+		</div>
+	</div>
+{% endfor %}
+<a href="{% url 'task-tracker:task-create' dashboard_pk %}">Add task</a>
 {% endblock %}

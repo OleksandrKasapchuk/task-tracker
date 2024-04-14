@@ -1,71 +1,17 @@
 {% extends "base.html" %}
 
 
-{% block content %}
-<ul>
-	{% for dashboard in dashboards %}
-		<li> <a href="{% url 'task-tracker:task-list' dashboard.pk %}">{{dashboard}}</a> </li>
-	{% endfor %}
-</ul>
-<header class="header_boards">
-	<a class="back_txt" href="http://127.0.0.1:8000/">Back to main page</a>
-	<a class="profile_txt" href="http://127.0.0.1:8000/">Profile</a>
-</header>
 
+{% block content %}
+<header class="header_boards">
+	<a class="back_txt" href="{% url 'task-tracker:index' %}">Back to main page</a>
+	<a class="profile_txt" href="{% url 'user-info' user.pk %}">Profile</a>
+</header>
 <main class="main_boards">
 	<div class="dashboards">
-		<a class="name">Test_1</a>
-		<a>✎</a>
-		<a>✘</a>
-	</div>
-
-	<div class="dashboards">
-		<a class="name">Test_2</a>
-		<a>✎</a>
-		<a>✘</a>
-	</div>
-
-	<div class="dashboards">
-		<a class="name">Test_3</a>
-		<a>✎</a>
-		<a>✘</a>
-	</div>
-
-	<div class="dashboards">
-		<a class="name">Test_4</a>
-		<a>✎</a>
-		<a>✘</a>
-	</div>
-
-	<div class="dashboards">
-		<a class="name">Test_5</a>
-		<a>✎</a>
-		<a>✘</a>
-	</div>
-
-	<div class="dashboards">
-		<a class="name">Test_6</a>
-		<a>✎</a>
-		<a>✘</a>
-	</div>
-
-	<div class="dashboards">
-		<a class="name">Test_7</a>
-		<a>✎</a>
-		<a>✘</a>
-	</div>
-
-	<div class="dashboards">
-		<a class="name">Test_8</a>
-		<a>✎</a>
-		<a>✘</a>
-	</div>
-
-	<div class="dashboards">
-		<a class="name">Test_9</a>
-		<a>✎</a>
-		<a>✘</a>
-	</div>
+	{% for dashboard in dashboards %}
+		<a href="{% url 'task-tracker:task-list' dashboard.pk %}" class="name">{{dashboard}}</a> <a href=""><i class="bi bi-pencil-fill"></i></a><a>✘</a>
+	{% endfor %}
 </main>
 
 <footer class="footer_boards">
