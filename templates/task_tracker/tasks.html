@@ -2,13 +2,8 @@
 
 
 {% block content %}
-<ul>
-	{% for dashboard in dashboards %}
-		<li> <a href="{% url 'task-tracker:task-list' dashboard.pk %}">{{dashboard}}</a> </li>
-	{% endfor %}
-</ul>
 <header class="header_boards">
-	<a class="back_txt" href="http://127.0.0.1:8000/">Back to dashboards</a>
+	<a class="back_txt" href="#">Back to dashboards</a>
 	<div class="sortby">
 		<h2>Sort by:⠀</h2>
 		<details class="dropdown">
@@ -16,9 +11,9 @@
 			<a class="button">Priority</a>
 			</summary>
 			<ul>
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
+			<li><input type="text"></li>
+			<li><input type="text"></li>
+			<li><input type="text"></li>
 		</ul>
 		</details>
 		<details class="dropdown">
@@ -31,6 +26,9 @@
 		</ul>
 		</details>
 	</div>
+	<!-- <form>
+		{{ form.as_p }}
+	</form> -->
 	<div class="right_header">
 		<a class="invite_txt" href="http://127.0.0.1:8000/">Invite</a>
 		<a class="profile_txt" href="http://127.0.0.1:8000/">Profile</a>
@@ -42,65 +40,44 @@
 	<div class="task_ultracolumb">
 		<h2>Need to do</h2>
 		<div class="task_column">
-			<div class="task_box">
-				<a class="task">Task test Task test Task test Task test Task test Task test Task test Task test Task test Task test </a>
-				<hr>
-			</div>
-			<div class="task_box">
-				<a class="task">Task test Task test Task test Task test Task test Task test Task test Task test Task test Task test 
-					test Task test Task test Task test Task test Task test Task testtest Task test Task test Task test Task test Task test Task test
-					test Task test Task test Task test Task test Task test Task test
-				</a>
-				<hr>
-			</div>
-			<div class="task_box">
-				<a class="task">Task test Task test Task test Task test Task test Task test Task test Task test Task test Task test
-					test Task test Task test Task test Task test Task test Task testtest Task test Task test Task test Task test Task test Task test </a>
-				<hr>
-			</div>
+			{% for task in tasks %}
+				{% if task.status == "1" %}
+				<div class="task_box">
+					<a class="task" href="{% url 'task-tracker:task-details' dashboard_pk task.pk %}"> {{task.name}} </a>
+					<hr>
+				</div>
+				{% endif %}
+				
+			{% endfor %}
 		</div>	
 	</div>
 	
 	<div class="task_ultracolumb">
 		<h2>In progress</h2>
 		<div class="task_column">
-			<div class="task_box">
-				<a class="task">Task test Task test Task test Task test Task test Task test Task test Task test Task test Task test </a>
-				<hr>
-			</div>
-			<div class="task_box">
-				<a class="task">Task test Task test Task test Task test Task test Task test Task test Task test Task test Task test 
-					test Task test Task test Task test Task test Task test Task testtest Task test Task test Task test Task test Task test Task test
-					test Task test Task test Task test Task test Task test Task test
-				</a>
-				<hr>
-			</div>
-			<div class="task_box">
-				<a class="task">Task test Task test Task test Task test Task test Task test Task test Task test Task test Task test
-					test Task test Task test Task test Task test Task test Task testtest Task test Task test Task test Task test Task test Task test </a>
-				<hr>
-			</div>
+			{% for task in tasks %}
+				{% if task.status == "2" %}
+				<div class="task_box">
+					<a class="task" href="{% url 'task-tracker:task-details' dashboard_pk task.pk %}"> {{task.name}} </a>
+					<hr>
+				</div>
+				{% endif %}
+
+			{% endfor %}
 		</div>	
 	</div>
 	<div class="task_ultracolumb">
 		<h2>Done</h2>
 		<div class="task_column">
-			<div class="task_box">
-				<a class="task">Task test Task test Task test Task test Task test Task test Task test Task test Task test Task test </a>
-				<hr>
-			</div>
-			<div class="task_box">
-				<a class="task">Task test Task test Task test Task test Task test Task test Task test Task test Task test Task test 
-					test Task test Task test Task test Task test Task test Task testtest Task test Task test Task test Task test Task test Task test
-					test Task test Task test Task test Task test Task test Task test
-				</a>
-				<hr>
-			</div>
-			<div class="task_box">
-				<a class="task">Task test Task test Task test Task test Task test Task test Task test Task test Task test Task test
-					test Task test Task test Task test Task test Task test Task testtest Task test Task test Task test Task test Task test Task test </a>
-				<hr>
-			</div>
+			{% for task in tasks %}
+				{% if task.status == "3" %}
+				<div class="task_box">
+					<a class="task" href="{% url 'task-tracker:task-details' dashboard_pk task.pk %}"> {{task.name}} </a>
+					<hr>
+				</div>
+				{% endif %}
+				
+			{% endfor %}
 		</div>	
 	</div>
 </main>

@@ -1,3 +1,5 @@
+from django.forms import BaseModelForm
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from .models import *
@@ -37,9 +39,9 @@ class TaskDetailView(DetailView):
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context['dashboard_pk'] = self.kwargs['dashboard_pk']
+		task = self.get_object()
+		context['comments'] = Comment.objects.filter(task=task)
 		return context
-
-
 
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
@@ -69,3 +71,15 @@ class TaskDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
 	template_name = "task_tracker/task_form.html"
 	def get_success_url(self) -> str:
 		return reverse_lazy("task-tracker:task-list",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk']})
+	
+
+class AddCommentView(LoginRequiredMixin, CreateView):
+	model = Comment
+	template_name = "task_tracker/comment.html"
+	form_class = CommentForm
+	def form_valid(self, form: BaseModelForm) -> HttpResponse:
+		form.instance.creator = self.request.user
+		form.instance.task = Task.objects.get(id=self.kwargs['pk'])
+		return super().form_valid(form)
+	def get_success_url(self) -> str:
+		return reverse_lazy("task-tracker:task-details",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk'],"pk":self.kwargs['pk']})

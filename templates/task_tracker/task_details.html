@@ -11,5 +11,10 @@
 	<a href="{% url 'task-tracker:task-edit' dashboard_pk task.pk %}">Edit</a>
 	<a href="{% url 'task-tracker:task-delete' dashboard_pk task.pk %}">Delete</a>
 </ul>
-
+<a href="{% url 'task-tracker:comment-add' dashboard_pk task.pk %}">add comment</a>
+{% for comment in comments %}
+<section>
+	{{ comment.content }} {{ comment.creator}}
+</section>
+{% endfor %}
 {% endblock %}
