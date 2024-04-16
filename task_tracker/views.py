@@ -25,12 +25,20 @@ class TaskListView(ListView):
 	context_object_name = "tasks"
 	template_name = "task_tracker/tasks.html"
 
-	def get_queryset(self):
-		return Task.objects.filter(dashboard_id=self.kwargs['dashboard_pk'])
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context['dashboard_pk'] = self.kwargs['dashboard_pk']
+		context['form'] = FilterTaskForm(self.request.GET)
 		return context
+	def get_queryset(self):
+		queryset = super().get_queryset()
+		priority = self.request.GET.get("priority", "")
+		if priority:
+			if priority == "4":
+				queryset = queryset.all()
+			else:
+				queryset = queryset.filter(priority=priority)
+		return queryset.filter(dashboard_id=self.kwargs['dashboard_pk'])
 
 class TaskDetailView(DetailView):
 	model = Task
@@ -71,7 +79,7 @@ class TaskDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
 	template_name = "task_tracker/task_form.html"
 	def get_success_url(self) -> str:
 		return reverse_lazy("task-tracker:task-list",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk']})
-	
+
 
 class AddCommentView(LoginRequiredMixin, CreateView):
 	model = Comment
