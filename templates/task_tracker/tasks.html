@@ -3,9 +3,9 @@
 
 {% block content %}
 <header class="header_boards">
-	<a class="back_txt" href="#">Back to dashboards</a>
+	<a class="back_txt" href="{% url 'task-tracker:dashboard-list' %}">Back to dashboards</a>
 	<div class="sortby">
-		<h2>Sort by:⠀</h2>
+		<h2>Sort by:</h2>
 		<details class="dropdown">
 			<summary role="button">
 			<a class="button">Priority</a>
@@ -26,12 +26,16 @@
 		</ul>
 		</details>
 	</div>
+	<form method="get">
+		{{form.as_p}}
+		<button type="submit">submit</button>
+	</form>
 	<!-- <form>
 		{{ form.as_p }}
 	</form> -->
 	<div class="right_header">
-		<a class="invite_txt" href="http://127.0.0.1:8000/">Invite</a>
-		<a class="profile_txt" href="http://127.0.0.1:8000/">Profile</a>
+		<a class="invite_txt" href="#">Invite</a>
+		<a class="profile_txt" href="{% url 'user-info' user.pk %}">Profile</a>
 	</div>
 </header>
 
