@@ -1,11 +1,12 @@
 from django.db import models
 from auth_system.models import CustomUser
-
+from datetime import datetime
 
 class Dashboard(models.Model):
 	name = models.CharField(max_length=100)
-	users = models.ManyToManyField(CustomUser)
-
+	users = models.ManyToManyField(CustomUser, related_name='users')
+	creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+	
 	def __str__(self):
 		return self.name
 

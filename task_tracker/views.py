@@ -14,13 +14,43 @@ class Index(TemplateView):
 	template_name = "task_tracker/index.html"
 
 
-class DashboardListView(ListView):
+class DashboardListView(LoginRequiredMixin, ListView):
 	model = Dashboard
 	context_object_name = "dashboards"
 	template_name = "task_tracker/dashboards.html"
 
 
-class TaskListView(ListView):
+class DashboardCreateView(LoginRequiredMixin, CreateView):
+	model = Dashboard
+	template_name = "task_tracker/task-form.html"
+	form_class = DashboardCreateForm
+	
+	def form_valid(self, form):
+		form.instance.creator = self.request.user
+		return super().form_valid(form)
+	
+	def get_success_url(self) -> str:
+		return reverse_lazy("task-tracker:dashboard-list")
+
+
+class DashboardUpdateView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
+	model = Dashboard
+	template_name = "task_tracker/task-form.html"
+	form_class = DashboardCreateForm
+	context_object_name = 'dashboard'
+
+	def get_success_url(self) -> str:
+		return reverse_lazy("task-tracker:dashboard-list")
+
+class DashboardDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
+	model = Dashboard
+	template_name = "task_tracker/dashboard_form.html"
+	
+	def get_success_url(self) -> str:
+		return reverse_lazy("task-tracker:dashboard-list")
+
+
+class TaskListView(LoginRequiredMixin, ListView):
 	model = Task
 	context_object_name = "tasks"
 	template_name = "task_tracker/tasks.html"
@@ -30,20 +60,26 @@ class TaskListView(ListView):
 		context['dashboard_pk'] = self.kwargs['dashboard_pk']
 		context['form'] = FilterTaskForm(self.request.GET)
 		return context
+	
 	def get_queryset(self):
 		queryset = super().get_queryset()
 		priority = self.request.GET.get("priority", "")
+		end_date = self.request.GET.get("end_date","")
 		if priority:
 			if priority == "4":
 				queryset = queryset.all()
 			else:
 				queryset = queryset.filter(priority=priority)
+		if end_date:
+			queryset = queryset.filter(active=True)
 		return queryset.filter(dashboard_id=self.kwargs['dashboard_pk'])
+
 
 class TaskDetailView(DetailView):
 	model = Task
 	context_object_name = "task"
 	template_name = "task_tracker/task_details.html"
+
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context['dashboard_pk'] = self.kwargs['dashboard_pk']
@@ -62,6 +98,7 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 		form.instance.dashboard = Dashboard.objects.get(id=self.kwargs['dashboard_pk'])
 		form.instance.end_date = form.cleaned_data['end_date']
 		return super().form_valid(form)
+	
 	def get_success_url(self) -> str:
 		return reverse_lazy("task-tracker:task-list",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk']})
 
@@ -71,6 +108,7 @@ class TaskUpdateView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
 	template_name = "task_tracker/task_form.html"
 	context_object_name = "task"
 	form_class = TaskCreateForm
+
 	def get_success_url(self) -> str:
 		return reverse_lazy("task-tracker:task-list",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk']})
 
@@ -78,6 +116,7 @@ class TaskUpdateView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
 class TaskDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
 	model = Task
 	template_name = "task_tracker/task_form.html"
+
 	def get_success_url(self) -> str:
 		return reverse_lazy("task-tracker:task-list",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk']})
 
@@ -86,9 +125,11 @@ class AddCommentView(LoginRequiredMixin, CreateView):
 	model = Comment
 	template_name = "task_tracker/comment.html"
 	form_class = CommentForm
+
 	def form_valid(self, form: BaseModelForm) -> HttpResponse:
 		form.instance.creator = self.request.user
 		form.instance.task = Task.objects.get(id=self.kwargs['pk'])
 		return super().form_valid(form)
+	
 	def get_success_url(self) -> str:
 		return reverse_lazy("task-tracker:task-details",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk'],"pk":self.kwargs['pk']})
