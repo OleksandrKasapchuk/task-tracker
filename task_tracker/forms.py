@@ -15,6 +15,7 @@ class FilterTaskForm(forms.Form):
 		result.append(i)
 	priority = forms.ChoiceField(choices=result, required=False, label="Priority")
 
+
 class CommentForm(forms.ModelForm):
 	class Meta:
 		model = Comment
