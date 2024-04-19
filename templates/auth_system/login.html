@@ -6,16 +6,18 @@
         <form method="POST" action="{% url 'login' %}" class="login-form">
             <h1>Login</h1>
             {% csrf_token %}
-            <fieldset class="input-wrapper">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" class="login-form-item">
-            </fieldset>
-            <fieldset class="input-wrapper">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" class="login-form-item">
-            </fieldset>
-            <button type="submit" class="btn btn-secondary">Submit</button>
-            <a href="{% url 'register' %}" >Do not have any account?</a>
+            <div class="form04ka">
+                <fieldset class="input-wrapper">
+                    <label for="username">Username:</label>
+                    <input type="text" required id="username"  name="username" class="login-form-item">
+                </fieldset>
+                <fieldset class="input-wrapper">
+                    <label for="password">Password:</label>
+                    <input type="password" required id="password" name="password" class="login-form-item">
+                </fieldset>
+                <button type="submit" class="btn btn-secondary sublogbtn">Submit</button>
+                <a href="{% url 'register' %}" >Do not have any account?</a>
+            </div>
         </form>
     </section>
 </main>
