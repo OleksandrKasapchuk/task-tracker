@@ -5,17 +5,15 @@
 {% block content %}
 <header class="header_boards">
 	<a class="back_txt" href="{% url 'task-tracker:index' %}">Back to main page</a>
-	<a href="{% url 'task-tracker:dashboard-create' %}" class="plusik">+</a>
+	<a class="plusik" href="{% url 'task-tracker:dashboard-create' %}">+</a>
 	<a class="profile_txt" href="{% url 'user-info' user.pk %}">Profile</a>
 </header>
 <main class="main_boards">
-	
 	{% for dashboard in dashboards %}
 	<div class="dashboards">
 		<a href="{% url 'task-tracker:task-list' dashboard.pk %}" class="name">{{dashboard}}</a> <a href="{% url 'task-tracker:dashboard-edit' dashboard.pk %}"><i class="bi bi-pencil-fill"></i></a><a href="{% url 'task-tracker:dashboard-delete' dashboard.pk %}">✘</a>
 	</div>
 	{% endfor %}
-	
 </main>
 
 <footer class="footer_boards">
