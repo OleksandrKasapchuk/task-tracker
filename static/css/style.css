@@ -288,6 +288,8 @@ input {
 .task_form {
 	display: flex;
 	flex-direction: column;
+	width: 35%;
+	align-items: center;
 }
 
 .form_flex {
