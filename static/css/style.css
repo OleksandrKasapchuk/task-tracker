@@ -269,7 +269,8 @@ input {
 
 .priotermform {
 	display: flex;
-
+	align-items: center;
+	margin-right: 1vh;
 }
 
 .sublogbtn:hover {
@@ -278,6 +279,7 @@ input {
 
 .plusik {
 	font-size: 12vh;
+	margin-bottom: 1vh;
 }
 
 .ne_form04ka {
@@ -302,4 +304,8 @@ input {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+.qwertyuio {
+	margin-left: 5vh;
 }
