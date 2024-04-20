@@ -8,10 +8,11 @@
 	<a class="profile_txt" href="{% url 'user-info' user.pk %}">Profile</a>
 </header>
 <main class="main_boards">
-	<div class="dashboards">
 	{% for dashboard in dashboards %}
+	<div class="dashboards">
 		<a href="{% url 'task-tracker:task-list' dashboard.pk %}" class="name">{{dashboard}}</a> <a href="{% url 'task-tracker:dashboard-edit' dashboard.pk %}"><i class="bi bi-pencil-fill"></i></a><a href="{% url 'task-tracker:dashboard-delete' dashboard.pk %}">✘</a>
-	{% endfor %}
+	</div>
+		{% endfor %}
 	<a href="{% url 'task-tracker:dashboard-create' %}">Add dashboard</a>
 </main>
 
