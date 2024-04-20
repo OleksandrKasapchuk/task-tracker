@@ -3,7 +3,11 @@
 
 {% block content %}
 <form method="post" class="form_flex">
-	<h1>Task creator</h1>
+	{% if object %}
+		<h1>Edit {{object}} </h1>
+	{% else %}
+		<h1>Tasker</h1>
+	{% endif %}
 	<div class="form04ka task_form">
 		{% csrf_token %}
 		{{form.as_p}}

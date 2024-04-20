@@ -37,7 +37,7 @@ class DashboardUpdateView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
 	model = Dashboard
 	template_name = "task_tracker/form.html"
 	form_class = DashboardCreateForm
-	context_object_name = 'dashboard'
+	
 
 	def get_success_url(self) -> str:
 		return reverse_lazy("task-tracker:dashboard-list")
@@ -92,13 +92,11 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 	model = Task
 	template_name = "task_tracker/form.html"
 	form_class = TaskCreateForm
-
 	def form_valid(self, form):
 		form.instance.creator = self.request.user
 		form.instance.dashboard = Dashboard.objects.get(id=self.kwargs['dashboard_pk'])
 		form.instance.end_date = form.cleaned_data['end_date']
 		return super().form_valid(form)
-	
 	def get_success_url(self) -> str:
 		return reverse_lazy("task-tracker:task-list",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk']})
 
