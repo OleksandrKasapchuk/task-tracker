@@ -4,32 +4,14 @@
 {% block content %}
 <header class="header_boards">
 	<a class="back_txt" href="{% url 'task-tracker:dashboard-list' %}">Back to dashboards</a>
-	<div class="sortby">
-		<h2>Sort by:</h2>
-		<details class="dropdown">
-			<summary role="button">
-			<a class="button">Priority</a>
-			</summary>
-			<ul>
-			<li><input type="text"></li>
-			<li><input type="text"></li>
-			<li><input type="text"></li>
-		</ul>
-		</details>
-		<details class="dropdown">
-			<summary role="button">
-			<a class="button">Term</a>
-			</summary>
-			<ul>
-			<li><a href="#">Sooner</a></li>
-			<li><a href="#">Later</a></li>
-		</ul>
-		</details>
-	</div>
-	<form method="get">
+	<form class="priotermform" method="get">
 		{{form.as_p}}
-		<button type="submit">submit</button>
+		<button class="subpriotermbtn" type="submit">Submit</button>
 	</form>
+	<a class="plusik" href="{% url 'task-tracker:task-create' dashboard_pk %}">+</a>
+	<!-- <form>
+		{{ form.as_p }}
+	</form> -->
 	<div class="right_header">
 		<a class="profile_txt" href="{% url 'user-info' user.pk %}">Profile</a>
 	</div>
@@ -80,8 +62,9 @@
 			{% endfor %}
 		</div>	
 	</div>
+
 </main>
-<a href="{% url 'task-tracker:task-create' dashboard_pk %}">Add task</a>
+
 <footer class="footer_boards">
 	<p class="authors">
         Made by<br><a href="https://t.me/omuskat" target="_blank">@omuskat</a> / <a href="https://t.me/Sashapre228" target="_blank">@Sashapre228</a>

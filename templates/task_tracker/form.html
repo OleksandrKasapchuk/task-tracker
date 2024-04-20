@@ -2,9 +2,12 @@
 
 
 {% block content %}
-<form method="post">
-	{% csrf_token %}
-	{{form.as_p}}
-	<button type="submit">submit</button>
+<form method="post" class="form_flex">
+	<h1>Task creator</h1>
+	<div class="form04ka task_form">
+		{% csrf_token %}
+		{{form.as_p}}
+		<button type="submit" class="subpriotermbtn">Submit</button>
+	</div>
 </form>
 {% endblock %}
