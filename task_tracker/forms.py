@@ -4,6 +4,7 @@ from .models import *
 
 class DashboardCreateForm(forms.ModelForm):
 	class Meta:
+		model = Dashboard
 		fields = ['name']
 	
 class TaskCreateForm(forms.ModelForm):

@@ -22,7 +22,7 @@ class DashboardListView(LoginRequiredMixin, ListView):
 
 class DashboardCreateView(LoginRequiredMixin, CreateView):
 	model = Dashboard
-	template_name = "task_tracker/task-form.html"
+	template_name = "task_tracker/form.html"
 	form_class = DashboardCreateForm
 	
 	def form_valid(self, form):
@@ -35,7 +35,7 @@ class DashboardCreateView(LoginRequiredMixin, CreateView):
 
 class DashboardUpdateView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
 	model = Dashboard
-	template_name = "task_tracker/task-form.html"
+	template_name = "task_tracker/form.html"
 	form_class = DashboardCreateForm
 	context_object_name = 'dashboard'
 
@@ -44,7 +44,7 @@ class DashboardUpdateView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
 
 class DashboardDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
 	model = Dashboard
-	template_name = "task_tracker/dashboard_form.html"
+	template_name = "task_tracker/form.html"
 	
 	def get_success_url(self) -> str:
 		return reverse_lazy("task-tracker:dashboard-list")
@@ -90,7 +90,7 @@ class TaskDetailView(DetailView):
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
 	model = Task
-	template_name = "task_tracker/task_form.html"
+	template_name = "task_tracker/form.html"
 	form_class = TaskCreateForm
 
 	def form_valid(self, form):
@@ -105,7 +105,7 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 
 class TaskUpdateView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
 	model = Task
-	template_name = "task_tracker/task_form.html"
+	template_name = "task_tracker/form.html"
 	context_object_name = "task"
 	form_class = TaskCreateForm
 
@@ -115,7 +115,7 @@ class TaskUpdateView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
 
 class TaskDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
 	model = Task
-	template_name = "task_tracker/task_form.html"
+	template_name = "task_tracker/form.html"
 
 	def get_success_url(self) -> str:
 		return reverse_lazy("task-tracker:task-list",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk']})
@@ -123,7 +123,7 @@ class TaskDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
 
 class AddCommentView(LoginRequiredMixin, CreateView):
 	model = Comment
-	template_name = "task_tracker/comment.html"
+	template_name = "task_tracker/form.html"
 	form_class = CommentForm
 
 	def form_valid(self, form: BaseModelForm) -> HttpResponse:

@@ -10,8 +10,9 @@
 <main class="main_boards">
 	<div class="dashboards">
 	{% for dashboard in dashboards %}
-		<a href="{% url 'task-tracker:task-list' dashboard.pk %}" class="name">{{dashboard}}</a> <a href=""><i class="bi bi-pencil-fill"></i></a><a>✘</a>
+		<a href="{% url 'task-tracker:task-list' dashboard.pk %}" class="name">{{dashboard}}</a> <a href="{% url 'task-tracker:dashboard-edit' dashboard.pk %}"><i class="bi bi-pencil-fill"></i></a><a href="{% url 'task-tracker:dashboard-delete' dashboard.pk %}">✘</a>
 	{% endfor %}
+	<a href="{% url 'task-tracker:dashboard-create' %}">Add dashboard</a>
 </main>
 
 <footer class="footer_boards">
