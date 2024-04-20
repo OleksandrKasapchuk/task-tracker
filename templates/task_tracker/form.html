@@ -3,11 +3,7 @@
 
 {% block content %}
 <form method="post" class="form_flex">
-	{% if object %}
-		<h1>Edit {{object}} </h1>
-	{% else %}
-		<h1>Tasker</h1>
-	{% endif %}
+	<h1>Tasker</h1>
 	<div class="form04ka task_form">
 		{% csrf_token %}
 		{{form.as_p}}
