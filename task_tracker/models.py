@@ -25,7 +25,7 @@ class Task(models.Model):
 	]
 
 	name = models.CharField(max_length=50)
-	description = models.TextField()
+	description = models.TextField(null = True, blank = True)
 	status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="todo")
 	priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES, default="medium")
 	end_date = models.DateTimeField(null=True, blank=True)
@@ -45,3 +45,4 @@ class Comment(models.Model):
 	content = models.TextField()
 	creator = models.ForeignKey(CustomUser,  on_delete=models.CASCADE,related_name="comments")
 	task = models.ForeignKey(Task, on_delete=models.CASCADE,related_name="comments")
+	media = models.FileField(upload_to="comment_media/", blank=True, null=True)

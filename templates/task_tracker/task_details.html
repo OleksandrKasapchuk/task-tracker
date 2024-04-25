@@ -2,8 +2,8 @@
 
 
 {% block content %}
-
-<ul>
+{% load custom_tags %}
+<ul class="form04ka">
 	<li> Name: {{ task.name }} </li>
 	<li> Creator: {{ task.creator }} </li>
 	<li> Description: {{ task.description }} </li>
@@ -11,10 +11,29 @@
 	<a href="{% url 'task-tracker:task-edit' dashboard_pk task.pk %}">Edit</a>
 	<a href="{% url 'task-tracker:task-delete' dashboard_pk task.pk %}">Delete</a>
 </ul>
-<a href="{% url 'task-tracker:comment-add' dashboard_pk task.pk %}">add comment</a>
+<form class="form_flex" method="post" enctype="multipart/form-data">
+	<div class="form04ka task_form">
+		{% csrf_token %}
+		{{form.as_p}}
+		<button type="submit" class="subpriotermbtn">Submit</button>
+	</div>
+</form>
 {% for comment in comments %}
 <section>
-	{{ comment.content }} {{ comment.creator}}
+	{{ comment.creator}}
+	{{ comment.content }} 
+	{% if comment.media %}
+		{% if comment.media.url|endswith:".jpg" or comment.media.url|endswith:".jpeg" or comment.media.url|endswith:".png" %}
+			<img src="{{comment.media.url}}" alt="Comment photo" style="max-width: 500px;">
+		{% elif comment.media.url|endswith:".mp4" %}
+			<video controls>
+				<source src="{{ comment.media.url}}" type="mp4/video">
+				Your browser does not support video tag
+			</video>
+		{% else %}
+			<a href="{{ comment.media.url}}">Download file</a>
+		{% endif %}
+	{% endif %}
 </section>
 {% endfor %}
 {% endblock %}

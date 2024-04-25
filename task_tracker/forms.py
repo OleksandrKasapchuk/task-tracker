@@ -8,7 +8,7 @@ class DashboardCreateForm(forms.ModelForm):
 		fields = ['name']
 	
 class TaskCreateForm(forms.ModelForm):
-	end_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'datetime-local',}))
+	end_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}), required=False)
 	class Meta:
 		model = Task
 		fields = ["name", "description", "status", "priority"]
@@ -25,4 +25,7 @@ class FilterTaskForm(forms.Form):
 class CommentForm(forms.ModelForm):
 	class Meta:
 		model = Comment
-		fields = ["content"]
+		fields = ["content", "media"]
+		widjets = {
+			"media": forms.FileInput()
+		}
