@@ -19,13 +19,21 @@
 			<a href="{% url 'task-tracker:task-edit' dashboard_pk task.pk %}">Edit</a> 
 			<br>
 		</div>
-		
-		<section>
-			<hr>
-			{% for comment in comments %}
-			{{ comment.content }} - {{ comment.creator}}
-		</section>
-	</div>
-</div>
+<section>
+	{{ comment.creator}}
+	{{ comment.content }} 
+	{% if comment.media %}
+		{% if comment.media.url|endswith:".jpg" or comment.media.url|endswith:".jpeg" or comment.media.url|endswith:".png" %}
+			<img src="{{comment.media.url}}" alt="Comment photo" style="max-width: 500px;">
+		{% elif comment.media.url|endswith:".mp4" %}
+			<video controls>
+				<source src="{{ comment.media.url}}" type="mp4/video">
+				Your browser does not support video tag
+			</video>
+		{% else %}
+			<a href="{{ comment.media.url}}">Download file</a>
+		{% endif %}
+	{% endif %}
+</section>
 {% endfor %}
 {% endblock %}

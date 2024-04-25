@@ -85,8 +85,19 @@ class TaskDetailView(DetailView):
 		context['dashboard_pk'] = self.kwargs['dashboard_pk']
 		task = self.get_object()
 		context['comments'] = Comment.objects.filter(task=task)
+		context['form'] = CommentForm
 		return context
-
+	
+	def post(self, request, *args, **kwargs):
+		comment_form = CommentForm(request.POST, request.FILES)
+		if comment_form.is_valid():
+			comment = comment_form.save(commit=False)
+			comment.creator = request.user
+			comment.task = self.get_object()
+			comment.save()
+			return redirect("task-tracker:task-details", dashboard_pk=comment.task.dashboard.pk, pk=comment.task.pk)
+		else:
+			pass
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
 	model = Task
@@ -119,15 +130,15 @@ class TaskDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
 		return reverse_lazy("task-tracker:task-list",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk']})
 
 
-class AddCommentView(LoginRequiredMixin, CreateView):
-	model = Comment
-	template_name = "task_tracker/form.html"
-	form_class = CommentForm
+# class AddCommentView(LoginRequiredMixin, CreateView):
+# 	model = Comment
+# 	template_name = "task_tracker/form.html"
+# 	form_class = CommentForm
 
-	def form_valid(self, form: BaseModelForm) -> HttpResponse:
-		form.instance.creator = self.request.user
-		form.instance.task = Task.objects.get(id=self.kwargs['pk'])
-		return super().form_valid(form)
+# 	def form_valid(self, form: BaseModelForm) -> HttpResponse:
+# 		form.instance.creator = self.request.user
+# 		form.instance.task = Task.objects.get(id=self.kwargs['pk'])
+# 		return super().form_valid(form)
 	
-	def get_success_url(self) -> str:
-		return reverse_lazy("task-tracker:task-details",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk'],"pk":self.kwargs['pk']})
+# 	def get_success_url(self) -> str:
+# 		return reverse_lazy("task-tracker:task-details",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk'],"pk":self.kwargs['pk']})
