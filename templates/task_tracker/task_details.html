@@ -2,19 +2,30 @@
 
 
 {% block content %}
-
-<ul>
-	<li> Name: {{ task.name }} </li>
-	<li> Creator: {{ task.creator }} </li>
-	<li> Description: {{ task.description }} </li>
-	<li> End date: {{ task.end_date }} </li>
-	<a href="{% url 'task-tracker:task-edit' dashboard_pk task.pk %}">Edit</a>
-	<a href="{% url 'task-tracker:task-delete' dashboard_pk task.pk %}">Delete</a>
-</ul>
-<a href="{% url 'task-tracker:comment-add' dashboard_pk task.pk %}">add comment</a>
-{% for comment in comments %}
-<section>
-	{{ comment.content }} {{ comment.creator}}
-</section>
+<h1>Tasker</h1>
+<div class="task_details_tesseractoriumanarium">
+	<div class="form04ka task_form ne_form04ka">
+		
+		<ul>
+			<li> Name: {{ task.name }}</li>
+			<li> Creator: {{ task.creator }} </li>
+			<li> Description: {{ task.description }} </li>
+			<li> End date: {{ task.end_date }} </li>
+			<hr>
+		</ul>
+		<div class="row-ambatacamus">
+			<a class="comment_rofl" href="{% url 'task-tracker:comment-add' dashboard_pk task.pk %}">Add comment</a>
+			<a href="{% url 'task-tracker:task-delete' dashboard_pk task.pk %}">Delete</a>
+			<a href="{% url 'task-tracker:task-edit' dashboard_pk task.pk %}">Edit</a> 
+			<br>
+		</div>
+		
+		<section>
+			<hr>
+			{% for comment in comments %}
+			{{ comment.content }} - {{ comment.creator}}
+		</section>
+	</div>
+</div>
 {% endfor %}
 {% endblock %}

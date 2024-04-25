@@ -309,3 +309,21 @@ input {
 .qwertyuio {
 	margin-left: 5vh;
 }
+
+.task_details_tesseractoriumanarium {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	
+}
+
+.row-ambatacamus {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	justify-content: space-evenly;	
+}
+
+.comment_rofl {
+	margin-left: 2vw;
+}
