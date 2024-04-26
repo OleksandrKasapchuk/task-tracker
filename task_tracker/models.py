@@ -46,3 +46,11 @@ class Comment(models.Model):
 	creator = models.ForeignKey(CustomUser,  on_delete=models.CASCADE,related_name="comments")
 	task = models.ForeignKey(Task, on_delete=models.CASCADE,related_name="comments")
 	media = models.FileField(upload_to="comment_media/", blank=True, null=True)
+
+
+class Like(models.Model):
+	user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="likes")
+	comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name="likes")
+
+	class Meta:
+		unique_together = ("user", "comment")

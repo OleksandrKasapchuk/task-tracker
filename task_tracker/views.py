@@ -1,6 +1,6 @@
 from django.forms import BaseModelForm
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from .models import *
 from django.views.generic import View, ListView, DetailView, CreateView, TemplateView, UpdateView, DeleteView
@@ -129,16 +129,12 @@ class TaskDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
 	def get_success_url(self) -> str:
 		return reverse_lazy("task-tracker:task-list",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk']})
 
-
-# class AddCommentView(LoginRequiredMixin, CreateView):
-# 	model = Comment
-# 	template_name = "task_tracker/form.html"
-# 	form_class = CommentForm
-
-# 	def form_valid(self, form: BaseModelForm) -> HttpResponse:
-# 		form.instance.creator = self.request.user
-# 		form.instance.task = Task.objects.get(id=self.kwargs['pk'])
-# 		return super().form_valid(form)
-	
-# 	def get_success_url(self) -> str:
-# 		return reverse_lazy("task-tracker:task-details",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk'],"pk":self.kwargs['pk']})
+class CommentLikeToggle(LoginRequiredMixin, View):
+	def post(self, request, *args, **kwargs) :
+		comment = get_object_or_404(Comment, pk=self.kwargs.get('pk'))
+		like_qs = Like.objects.filter(comment=comment, user=request.user)
+		if like_qs.exists():
+			like_qs.delete()
+		else:
+			Like.objects.create(comment=comment, user=request.user)
+		return redirect("task-tracker:task-details", dashboard_pk=self.kwargs['dashboard_pk'],pk=self.kwargs['task_pk'])
