@@ -13,6 +13,7 @@ urlpatterns = [
 	path('dashboards/<int:dashboard_pk>/task-create/', task_views.TaskCreateView.as_view(), name='task-create'),
 	path('dashboards/<int:dashboard_pk>/task-edit/<int:pk>/', task_views.TaskUpdateView.as_view(), name='task-edit'),
 	path('dashboards/<int:dashboard_pk>/task-delete/<int:pk>/', task_views.TaskDeleteView.as_view(), name='task-delete'),
+	path('dashboards/<int:dashboard_pk>/tasks/<int:task_pk>/<int:pk>/like', task_views.CommentLikeToggle.as_view(), name='like-add'),
 ]
 
 app_name = "task-tracker"
