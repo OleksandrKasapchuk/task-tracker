@@ -46,9 +46,10 @@
 				<a href="{{ comment.media.url}}">Download file</a>
 			{% endif %}
 		{% endif %}
+		<br>
 		<form action="{% url 'task-tracker:like-add' dashboard_pk task.pk comment.pk %}" method="post"> 
 			{% csrf_token %} 
-			<button type="submit">Like {{comment.likes.count}}</button> 
+			<button type="submit" class="btn btn-xuina btn-sm {% if request.user in comment.likes.all %}btn-primarygit {% else %}btn-outline-primary{% endif %}">Like {{comment.likes.count}}</button> 
 		</form>
 	</section>
 
