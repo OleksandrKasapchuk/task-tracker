@@ -344,3 +344,7 @@ input {
 	display: flex;
 	flex-direction: column;
 }
+
+.btn_xuina {
+	background-color: blue;
+}
