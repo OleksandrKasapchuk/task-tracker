@@ -29,7 +29,6 @@
 					{% csrf_token %} 
 					{{form.as_p}} 
 				<button type="submit" class="subpriotermbtn">Submit</button>
-				</div>
 			</div> 
 			</form>
 	{% for comment in comments %}
@@ -44,9 +43,15 @@
 					<source src="{{ comment.media.url}}" type="mp4/video">
 					Your browser does not support video tag
 				</video>
+			{% elif comment.media.url|endswith:"mp3" %}
+				<audio src="{{ comment.media.url}}" controls></audio>
 			{% else %}
 				<a href="{{ comment.media.url}}">Download file</a>
 			{% endif %}
+		{% endif %}
+		{% if request.user == comment.creator %}
+				<a href="{% url 'task-tracker:comment-edit' dashboard_pk task.pk comment.pk %}">Edit</a>
+				<a href="{% url 'task-tracker:comment-delete' dashboard_pk task.pk comment.pk %}">Delete</a>
 		{% endif %}
 		<br>
 		<form action="{% url 'task-tracker:like-add' dashboard_pk task.pk comment.pk %}" method="post"> 

@@ -119,7 +119,7 @@ class TaskUpdateView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
 	form_class = TaskCreateForm
 
 	def get_success_url(self) -> str:
-		return reverse_lazy("task-tracker:task-list",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk']})
+		return reverse_lazy("task-tracker:task-details",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk'],"pk": self.kwargs['pk']})
 
 
 class TaskDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
@@ -138,3 +138,17 @@ class CommentLikeToggle(LoginRequiredMixin, View):
 		else:
 			Like.objects.create(comment=comment, user=request.user)
 		return redirect("task-tracker:task-details", dashboard_pk=self.kwargs['dashboard_pk'],pk=self.kwargs['task_pk'])
+	
+class DeleteCommentView(LoginRequiredMixin,UserIsOwnerMixin,DeleteView):
+	model = Comment
+	template_name = "task_tracker/form.html"
+	def get_success_url(self) -> str:
+		return reverse_lazy("task-tracker:task-details",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk'],"pk": self.kwargs['task_pk']})
+
+class UpdateCommentView(LoginRequiredMixin,UserIsOwnerMixin,UpdateView):
+	model = Comment
+	template_name = "task_tracker/form.html"
+	context_object_name = "comment"
+	form_class = CommentForm
+	def get_success_url(self) -> str:
+		return reverse_lazy("task-tracker:task-details",  kwargs={'dashboard_pk': self.kwargs['dashboard_pk'],"pk": self.kwargs['task_pk']})
