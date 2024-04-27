@@ -23,11 +23,13 @@
 				<a href="{% url 'task-tracker:task-delete' dashboard_pk task.pk %}">Delete</a>
 				<br>
 			</div>
+			<br>
 			<form class="form_flex" method="post" enctype="multipart/form-data"> 
 				<div class=" task_form"> 
 					{% csrf_token %} 
 					{{form.as_p}} 
-					<button type="submit" class="subpriotermbtn">Submit</button> 
+				<button type="submit" class="subpriotermbtn">Submit</button>
+				</div>
 			</div> 
 			</form>
 	{% for comment in comments %}
