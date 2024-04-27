@@ -51,6 +51,7 @@
 		{% endif %}
 		{% if request.user == comment.creator %}
 				<a href="{% url 'task-tracker:comment-edit' dashboard_pk task.pk comment.pk %}">Edit</a>
+				<br>
 				<a href="{% url 'task-tracker:comment-delete' dashboard_pk task.pk comment.pk %}">Delete</a>
 		{% endif %}
 		<br>

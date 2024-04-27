@@ -2,14 +2,17 @@
 
 
 {% block content %}
-<main class="back_gr">
-	<form method="post" class="form_flex">
-		<h1>Tasker</h1>	
-		<div class="form04ka task_form">
-			{% csrf_token %}
-			{{form.as_p}}
-			<button type="submit" class="subpriotermbtn">Submit</button>
+<main class="back_gr2">
+	<div class="task_details_tesseractoriumanarium">
+		<h1>Tasker</h1>
+		<div class="form04ka task_form ne_form04ka">
+			<form method="post" class="form_flex">
+					
+					{% csrf_token %}
+					{{form.as_p}}
+					<button type="submit" class="subpriotermbtn">Submit</button>
+			</form>
 		</div>
-	</form>
+	</div>
 </main>
 {% endblock %}
