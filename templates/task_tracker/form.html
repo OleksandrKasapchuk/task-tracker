@@ -4,13 +4,15 @@
 {% block content %}
 <main class="back_gr2">
 	<div class="task_details_tesseractoriumanarium">
-		<h1>Tasker</h1>
+		<h1 class="tasker">Tasker</h1>
+		{% if request.method == "delete" %}
+			<p>are you sure?</p>
+		{% endif %}
 		<div class="form04ka task_form ne_form04ka">
 			<form method="post" class="form_flex">
-					
-					{% csrf_token %}
-					{{form.as_p}}
-					<button type="submit" class="subpriotermbtn">Submit</button>
+				{% csrf_token %}
+				{{form.as_p}}
+				<button type="submit" class="subpriotermbtn">Submit</button>
 			</form>
 		</div>
 	</div>

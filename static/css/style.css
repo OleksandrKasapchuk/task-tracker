@@ -45,8 +45,10 @@ h1 {
 	-webkit-text-stroke-color: #000; 
 	font-size: 200px; 
 	text-align: center; 
-	}
-
+}
+.tasker {
+	font-size: 140px;
+}
 .sign_btn {
 	padding: 15px;
 	background-color: rgba(0, 0, 0, 0.1);
